@@ -1,7 +1,15 @@
 <template>
-  <div></div>
+  <div>
+    <h3 class="title">{{ locationName }}</h3>
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const locationName = ref('')
+</script>
 
-<style scoped></style>
+<style scoped>
+.title {
+  text-align: center;
+}
+</style>
