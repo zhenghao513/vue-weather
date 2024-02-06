@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'MiSans';
+  src:
+    url('assets/fonts/MiSans-Regular.woff2') format('woff2'),
+    url('assets/fonts/MiSans-Regular.woff') format('woff');
+}
+
 :root {
   box-sizing: border-box;
 }
@@ -9,8 +16,9 @@
 }
 
 body {
+  color: #ffffff;
   background-color: #eee;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'MiSans', Helvetica, Arial, sans-serif;
 }
 
 body * + * {
