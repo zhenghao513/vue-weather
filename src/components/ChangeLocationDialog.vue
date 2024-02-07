@@ -30,5 +30,6 @@ const input = ref('')
 function handleClick() {
   visible.value = false
   emit('search', input.value)
+  input.value = ''
 }
 </script>
