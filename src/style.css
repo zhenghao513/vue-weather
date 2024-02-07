@@ -25,6 +25,10 @@ body * + * {
   margin-top: 1.5em;
 }
 
+body * + *[class^='el-'] {
+  margin-top: 0;
+}
+
 .card {
   display: flex;
   max-width: 60em;

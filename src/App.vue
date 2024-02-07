@@ -1,5 +1,15 @@
 <template>
   <div>
+    <el-button
+      :icon="Search"
+      circle
+      class="search__button"
+      @click="openDialog"
+    />
+    <change-location-dialog
+      ref="dialog"
+      @search="(value) => (location = value)"
+    />
     <h3 class="title">{{ locationName }}</h3>
     <realtime-weather
       :text="weather?.text"
@@ -13,15 +23,24 @@
 </template>
 
 <script setup lang="ts">
-import {
+import { Search } from '@element-plus/icons-vue'
+import type {
   AirQualityData,
   DailyWeatherInfo,
   HourlyWeatherInfo,
   WeatherData,
   WeatherLocation,
 } from '@/types'
+import ChangeLocationDialog from '@/components/ChangeLocationDialog.vue'
 
 const key = '09de6ea036df4ce48519cc1689d522ab'
+
+const dialog = ref<InstanceType<typeof ChangeLocationDialog> | null>(null)
+const openDialog = () => {
+  if (dialog.value) {
+    dialog.value.visible = true
+  }
+}
 
 const locationId = ref('')
 const locationName = ref('')
@@ -131,5 +150,11 @@ watch(locationId, async () => {
 <style scoped>
 .title {
   text-align: center;
+}
+
+.search__button {
+  position: absolute;
+  top: 28px;
+  transform: translateY(-50%);
 }
 </style>
