@@ -17,8 +17,31 @@
       :category="air?.category"
       :aqi="air?.aqi"
     />
-    <forecast-everyday :everyday-list="everydayList" />
-    <forecast-hour :hour-list="hourList" />
+    <div class="wrapper">
+      <forecast-everyday :everyday-list="everydayList" />
+    </div>
+    <div class="wrapper">
+      <forecast-hour :hour-list="hourList" />
+    </div>
+
+    <div class="grid wrapper">
+      <div class="grid-left">
+        <wind-direction
+          :wind-dir="weather?.windDir"
+          :wind-scale="weather?.windScale"
+        />
+        <wind-direction
+          :wind-dir="weather?.windDir"
+          :wind-scale="weather?.windScale"
+        />
+      </div>
+      <div>
+        <wind-direction
+          :wind-dir="weather?.windDir"
+          :wind-scale="weather?.windScale"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,6 +55,7 @@ import type {
   WeatherLocation,
 } from '@/types'
 import ChangeLocationDialog from '@/components/ChangeLocationDialog.vue'
+import WindDirection from '@/components/WindDirection.vue'
 
 const key = '09de6ea036df4ce48519cc1689d522ab'
 
@@ -152,9 +176,35 @@ watch(locationId, async () => {
   text-align: center;
 }
 
+.wrapper {
+  max-width: 60em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .search__button {
   position: absolute;
   top: 28px;
   transform: translateY(-50%);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1.5em;
+}
+
+.grid * + * {
+  margin-top: 0;
+}
+
+.grid-left {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 1.5em;
+}
+
+.grid-left * + * {
+  margin-top: 0;
 }
 </style>
