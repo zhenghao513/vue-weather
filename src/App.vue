@@ -30,9 +30,9 @@
           :wind-dir="weather?.windDir"
           :wind-scale="weather?.windScale"
         />
-        <wind-direction
-          :wind-dir="weather?.windDir"
-          :wind-scale="weather?.windScale"
+        <astronomy-time
+          :sunrise="astronomy?.sunrise"
+          :sunset="astronomy?.sunset"
         />
       </div>
       <div>
@@ -53,9 +53,11 @@ import type {
   HourlyWeatherInfo,
   WeatherData,
   WeatherLocation,
+  AstronomyData,
 } from '@/types'
 import ChangeLocationDialog from '@/components/ChangeLocationDialog.vue'
 import WindDirection from '@/components/WindDirection.vue'
+import AstronomyTime from '@/components/AstronomyTime.vue'
 
 const key = '09de6ea036df4ce48519cc1689d522ab'
 
@@ -110,6 +112,29 @@ const listEveryday = async () => {
   )
   everydayList.value = data.daily
 }
+
+const astronomy = ref<AstronomyData | null>(null)
+const getAstronomy = async () => {
+  const date = new Date()
+  const { data } = await axios.get<AstronomyData>(
+    'https://devapi.qweather.com/v7/astronomy/sun',
+    {
+      params: {
+        location: locationId.value,
+        date: date
+          .toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
+          .replace(/\//g, ''),
+        key,
+      },
+    },
+  )
+  astronomy.value = data
+}
+
 const listHour = async () => {
   const { data } = await axios.get<HourlyWeatherInfo>(
     'https://devapi.qweather.com/v7/weather/24h',
@@ -168,6 +193,7 @@ watch(locationId, async () => {
   await getWeather()
   await listEveryday()
   await listHour()
+  await getAstronomy()
 })
 </script>
 

@@ -157,3 +157,13 @@ interface Location {
   rank: string
   fxLink: string
 }
+
+// 风向
+export interface AstronomyData {
+  code: string
+  updateTime: string
+  fxLink: string
+  sunrise: string
+  sunset: string
+  refer: ReferInfo
+}
